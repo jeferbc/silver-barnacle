@@ -1,0 +1,8 @@
+extend ../layout
+
+block content
+  form(action="/surveys", method="post")
+    input(type=text, name="name")
+    textarea(name="description")
+    input(type=text, name="options[][text]")
+    button(type=submit) Enviar
