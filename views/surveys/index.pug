@@ -1,4 +1,8 @@
 extends ../layout
 
 block content
-  h1 Hola Mundo
+  a(href="/surveys/new") New survey
+  each survey in surveys
+    div= survey.name
+  else
+    div No surveys found

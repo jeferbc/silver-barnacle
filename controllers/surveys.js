@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const Survey = mongoose.model('Survey');
 
-exports.index = (req, res) => {
-  res.render('surveys', { surveys: Survey.find() })
+exports.index = async (req, res) => {
+  const surveys = await Survey.find();
+  res.render('surveys/index', { surveys: surveys });
 };
 
 exports.new = (req, res) => {
@@ -11,6 +12,11 @@ exports.new = (req, res) => {
 
 exports.create = async (req, res) => {
   const survey = new Survey(req.body);
-  await survey.save()
+  try {
+    await survey.save()    
+  } catch(err) {
+    console.log(err)
+  }
+
   res.redirect('/surveys');
 };
