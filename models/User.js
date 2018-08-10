@@ -26,8 +26,8 @@ schema.pre("save", function (next) {
 });
 
 // used for authentication
-schema.statics.authenticate = (username, password, cb) => {
-  mongoose.model("User").findOne({ username: username }, (err, user) => {
+schema.statics.authenticate = (email, password, cb) => {
+  mongoose.model("User").findOne({ email: email }, (err, user) => {
     if (err) {
       return cb(err);
     } else if (!user) {

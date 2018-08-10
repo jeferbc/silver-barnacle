@@ -3,7 +3,7 @@ const Survey = mongoose.model('Survey');
 
 exports.index = async (req, res) => {
   const surveys = await Survey.find();
-  res.render('surveys/index', { surveys: surveys });
+  res.render('surveys/index', { surveys: surveys, res: res });
 };
 
 exports.new = (req, res) => {
@@ -13,7 +13,7 @@ exports.new = (req, res) => {
 exports.create = async (req, res) => {
   const survey = new Survey(req.body);
   try {
-    await survey.save()    
+    await survey.save()
   } catch(err) {
     console.log(err)
   }
