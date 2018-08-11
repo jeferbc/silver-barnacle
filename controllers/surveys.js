@@ -3,7 +3,7 @@ const Survey = mongoose.model('Survey');
 
 exports.index = async (req, res) => {
   const surveys = await Survey.find();
-  res.render('surveys/index', { surveys: surveys, res: res });
+  res.render('surveys/index', { surveys: surveys });
 };
 
 exports.new = (req, res) => {
@@ -11,6 +11,7 @@ exports.new = (req, res) => {
 }
 
 exports.create = async (req, res) => {
+  console.log(req.body);
   const survey = new Survey(req.body);
   try {
     await survey.save()
@@ -20,3 +21,8 @@ exports.create = async (req, res) => {
 
   res.redirect('/surveys');
 };
+
+exports.show = async (req, res) => {
+  const survey = await Survey.findOne({ _id: req.params.id });
+  res.render("surveys/show", { survey: survey });
+}

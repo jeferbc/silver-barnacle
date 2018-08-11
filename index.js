@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const path = require('path');
 require("./models/Survey");
 require("./models/User");
 const routes = require('./routes');
@@ -13,6 +14,7 @@ app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 

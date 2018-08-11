@@ -1,13 +1,26 @@
 extends ../layout
 
 block content
-  h1 Register
-  form(action="/register", method="post")
-    div
-      label(for="email") Email
-      input(type="text", id="email", name="email")
-    div
-      label(for="password") Password
-      input(type="password", id="password", name="password")
-    div
-      button(type="submit") Enviar
+  section(class="section")
+    div(class="container")
+      div(class="columns is-centered")
+        div(class="column is-two-fifths")
+          div(class="card")
+            div(class="card-header")
+              div(class="card-header-title") Sign Up
+
+            form(action="/register", method="post")
+              div(class="card-content")
+                div(class="field")
+                  label(for="email", class="label") Email
+                  div(class="control")
+                    input(type="text", id="email", name="email", class="input")
+                div(class="field")
+                  label(for="password", class="label") Password
+                  div(class="control")
+                    input(type="password", id="password", name="password", class="input")
+
+              div(class="card-footer")
+                div(class="card-footer-item is-right justify-content-between")
+                  a(href="/login") Login
+                  button(type="submit", class="button is-primary") Sign Up

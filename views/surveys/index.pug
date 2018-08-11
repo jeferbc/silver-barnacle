@@ -1,17 +1,26 @@
 extends ../layout
 
 block content
-  div
-    if user
-      a(href="/logout") Logout
-    else
-      a(href="/login") Login
-      a(href="/register") Register
+  section(class="section")
+    div(class="container")
+      div(class="level")
+        div(class="level-left")
+          if user
+            a(href="/surveys/new" class="button is-primary") New Survey
+        div(class="level-right")
 
-  if user
-    a(href="/surveys/new") New survey
-    
-  each survey in surveys
-    div= survey.name
-  else
-    div No surveys found
+
+      div(class="columns is-multiline")
+        each survey in surveys
+          div(class="column is-4")
+            div(class="card survey")
+              div(class="card-content")
+                h4(class="title is-4 has-text-weight-light")= survey.name
+                p(class="subtitle is-7") Creado por user2@example.com
+                div(class="content")= survey.description
+
+              div(class="card-footer")
+                p(class="card-footer-item has-text-grey-light has-text-weight-semibold")= survey.votes() + " votes"
+                a(href="/surveys/" + survey._id class="card-footer-item") Vote
+        else
+          div(class="column") No surveys found

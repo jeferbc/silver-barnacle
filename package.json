@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "css": "node-sass --omit-source-map-url sass/application.scss public/stylesheets/application.css",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +18,9 @@
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.6",
     "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "bulma": "^0.7.1",
+    "node-sass": "^4.9.3"
   }
 }

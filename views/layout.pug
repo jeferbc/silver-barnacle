@@ -1,5 +1,19 @@
 html
   head
-    title Surveys
+    title Survey
+    link(rel="stylesheet" href="/public/stylesheets/application.css")
   body
+    div(class="navbar is-dark", role="navigation", aria-label="main navigation")
+      div(class="container")
+        div(class="navbar-brand")
+          a(href="/" class="navbar-item has-text-weight-bold is-size-5") Surveys
+        div(class="navbar-menu")
+          div(class="navbar-end")
+            if user
+              a(href="/logout" class="navbar-item") Logout
+            else
+              a(href="/login" class="navbar-item") Login
+              div(class="navbar-item")
+                a(href="/register" class="button is-info") Register
+
     block content

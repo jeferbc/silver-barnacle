@@ -25,4 +25,10 @@ const schema = new mongoose.Schema({
   }]
 });
 
+schema.methods.votes = function() {
+  let sum = 0;
+  this.options.forEach((option) => sum += option.votes);
+  return sum;
+};
+
 module.exports = mongoose.model("Survey", schema);

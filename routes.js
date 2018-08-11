@@ -28,7 +28,7 @@ const setUser = (req, res, next) => {
 }
 
 const requireUser = (req, res, next) => {
-  if (!res.user) {
+  if (!res.locals.user) {
     return res.redirect("/login");
   }
   next();
@@ -47,5 +47,6 @@ router.get("/logout", requireUser, sessions.destroy);
 router.get("/surveys", surveys.index);
 router.get("/surveys/new", requireUser, surveys.new);
 router.post("/surveys", requireUser, surveys.create);
+router.get("/surveys/:id", surveys.show)
 
 module.exports = router;
