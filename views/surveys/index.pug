@@ -9,7 +9,6 @@ block content
             a(href="/surveys/new" class="button is-primary") New Survey
         div(class="level-right")
 
-
       div(class="columns is-multiline")
         each survey in surveys
           div(class="column is-4")
@@ -17,7 +16,7 @@ block content
               div(class="card-content")
                 h4(class="title is-4 has-text-weight-light")= survey.name
                 p(class="subtitle is-7") Creado por user2@example.com
-                div(class="content")= survey.description
+                div(class="content")= truncate(survey.description, 160)
 
               div(class="card-footer")
                 p(class="card-footer-item has-text-grey-light has-text-weight-semibold")= survey.votes() + " votes"

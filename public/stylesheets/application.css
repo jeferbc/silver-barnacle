@@ -6424,3 +6424,10 @@ body {
 
 .justify-content-between {
   justify-content: space-between; }
+
+.survey {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  .survey .card-footer {
+    margin-top: auto; }

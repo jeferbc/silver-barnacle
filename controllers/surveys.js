@@ -1,9 +1,16 @@
 const mongoose = require("mongoose");
 const Survey = mongoose.model('Survey');
 
+const truncate = (text, length) => {
+  if (text.length > length) {
+    return `${text.substring(0, length - 5)} ...`;
+  }
+  return text;
+}
+
 exports.index = async (req, res) => {
   const surveys = await Survey.find();
-  res.render('surveys/index', { surveys: surveys });
+  res.render('surveys/index', { surveys: surveys, truncate: truncate });
 };
 
 exports.new = (req, res) => {
@@ -11,7 +18,6 @@ exports.new = (req, res) => {
 }
 
 exports.create = async (req, res) => {
-  console.log(req.body);
   const survey = new Survey(req.body);
   try {
     await survey.save()
