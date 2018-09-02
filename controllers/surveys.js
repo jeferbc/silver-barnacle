@@ -32,3 +32,18 @@ exports.show = async (req, res) => {
   const survey = await Survey.findOne({ _id: req.params.id });
   res.render("surveys/show", { survey: survey });
 }
+
+exports.vote = async (req, res) => {
+  const answer = req.body.answer;
+
+  const survey = await Survey.findOne({ _id: req.params.id });
+  survey.options[answer].votes += 1;
+  await survey.save();
+
+  res.redirect(`/surveys/${survey._id}/results`);
+}
+
+exports.results = async (req, res) => {
+  const survey = await Survey.findOne({ _id: req.params.id });
+  res.render("surveys/results", { survey: survey });
+}

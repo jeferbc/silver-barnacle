@@ -6431,3 +6431,34 @@ body {
   height: 100%; }
   .survey .card-footer {
     margin-top: auto; }
+
+.survey-page .header-box {
+  margin-top: 40px;
+  padding: 2rem; }
+
+.survey-page .options-box {
+  margin-top: 20px;
+  padding: 2.5rem 2rem; }
+  .survey-page .options-box p {
+    margin-bottom: 30px; }
+  .survey-page .options-box .options {
+    padding-left: 20px; }
+    .survey-page .options-box .options .option {
+      margin-bottom: 25px; }
+      .survey-page .options-box .options .option span {
+        margin-left: 10px; }
+      .survey-page .options-box .options .option .option-label span {
+        color: #999;
+        font-size: 0.85rem;
+        font-weight: 600; }
+      .survey-page .options-box .options .option .option-bar {
+        background: #54cea9;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        height: 27px;
+        margin-top: 5px;
+        padding: 5px 2px; }
+
+.survey-page .form-actions {
+  margin-top: 30px; }

@@ -31,4 +31,12 @@ schema.methods.votes = function() {
   return sum;
 };
 
+schema.methods.optionPercentage = function(index) {
+  const totalVotes = this.votes();
+  if (totalVotes > 0) {
+    return (this.options[index].votes / totalVotes) * 100;
+  }
+  return 0;
+}
+
 module.exports = mongoose.model("Survey", schema);

@@ -13,3 +13,43 @@ body {
 
   .card-footer { margin-top: auto; }
 }
+
+.survey-page {
+  .header-box {
+    margin-top: 40px;
+    padding: 2rem;
+  }
+
+  .options-box {
+    margin-top: 20px;
+    padding: 2.5rem 2rem;
+
+    p { margin-bottom: 30px; }
+
+    .options {
+      padding-left: 20px;
+
+      .option {
+        margin-bottom: 25px;
+
+        span { margin-left: 10px; }
+        .option-label span {
+          color: #999;
+          font-size: 0.85rem;
+          font-weight: 600;
+        }
+        .option-bar {
+          background: #54cea9;
+          color: white;
+          font-size: 0.75rem;
+          font-weight: 600;
+          height: 27px;
+          margin-top: 5px;
+          padding: 5px 2px;
+        }
+      }
+    }
+  }
+
+  .form-actions { margin-top: 30px; }
+}

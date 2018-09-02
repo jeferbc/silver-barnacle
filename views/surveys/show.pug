@@ -1,26 +1,28 @@
 extends ../layout
 
 block content
-  section(class="section")
-    div(class="container")
-      div(class="columns is-centered")
-        div(class="column is-two-thirds")
-          div
-            a(href="/") &larr; Back
+  div(class="survey-page")
+    section(class="section")
+      div(class="container")
+        div(class="columns is-centered")
+          div(class="column is-two-thirds")
+            div
+              a(href="/") &larr; Back
 
-          div(class="box" style="margin-top: 40px; padding: 2rem;")
-            h1(class="title is-size-3 has-text-weight-light")= survey.name
-            p(class="subtitle is-6 has-text-grey-light") Creado por user2@example.com
-            p= survey.description
+            div(class="box header-box")
+              h1(class="title is-size-3 has-text-weight-light")= survey.name
+              p(class="subtitle is-6 has-text-grey-light") Creado por user2@example.com
+              p= survey.description
 
-          div(class="box has-background-white" style="margin-top: 20px; padding: 2.5rem 2rem;")
-            p(style="margin-bottom: 30px;") Selecciona una opción:
-            div(class="options" style="padding-left: 20px;")
-              each option in survey.options
-                div(style="margin-bottom: 25px;")
-                  label(class="radio is-size-6")
-                    input(type="radio" name="answer")
-                    span(style="margin-left: 10px;")= "  " + option.text
+            form(action=`/surveys/${survey._id}/vote` method="post")
+              div(class="box options-box has-background-white")
+                p Selecciona una opción:
+                div(class="options")
+                  each option, i in survey.options
+                    div(class="option")
+                      label(class="radio is-size-6")
+                        input(type="radio" name="answer" value=i)
+                        span= "  " + option.text
 
-          div(class="has-text-right" style="margin-top: 30px;")
-            button(type="submit", class="button is-primary is-medium") Votar!
+              div(class="form-actions has-text-right")
+                button(type="submit", class="button is-primary is-medium") Votar!
