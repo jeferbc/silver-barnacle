@@ -1,9 +1,8 @@
 @charset "utf-8";
 @import "../node_modules/bulma/bulma.sass";
 
-body {
-  background: #fdfdfe;
-}
+html { background: #fdfdfe; }
+
 .justify-content-between { justify-content: space-between; }
 
 .survey {
@@ -12,6 +11,12 @@ body {
   height: 100%;
 
   .card-footer { margin-top: auto; }
+}
+
+.error-text {
+  color: $danger;
+  font-size: 0.9rem;
+  margin-top: 3px;
 }
 
 .survey-page {

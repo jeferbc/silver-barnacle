@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+  include ../mixins.pug
   section(class="section")
     div(class="container")
       div(class="columns is-centered")
@@ -14,11 +15,13 @@ block content
                 div(class="field")
                   label(for="email", class="label") Email
                   div(class="control")
-                    input(type="text", id="email", name="email", class="input")
+                    input(type="text", id="email", name="email", class="input" + (errors && errors.email ? " is-danger" : ""))
+                    +error(errors, "email")
                 div(class="field")
                   label(for="password", class="label") Password
                   div(class="control")
-                    input(type="password", id="password", name="password", class="input")
+                    input(type="password", id="password", name="password", class="input" + (errors && errors.password ? " is-danger" : ""))
+                    +error(errors, "password")
 
               div(class="card-footer")
                 div(class="card-footer-item is-right justify-content-between")

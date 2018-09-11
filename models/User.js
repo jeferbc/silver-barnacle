@@ -6,11 +6,12 @@ const schema = new mongoose.Schema({
     type: String,
     unique: true,
     lowercase: true,
-    trim: true
+    trim: true,
+    required: [true, "is required"]
   },
   password: {
     type: String,
-    required: true
+    required: [true, "is required"]
   }
 });
 
@@ -26,24 +27,19 @@ schema.pre("save", function (next) {
 });
 
 // used for authentication
-schema.statics.authenticate = (email, password, cb) => {
-  mongoose.model("User").findOne({ email: email }, (err, user) => {
-    if (err) {
-      return cb(err);
-    } else if (!user) {
-      const err = new Error("User not found");
-      err.status = 401
-      return cb(err);
-    }
-
-    bcrypt.compare(password, user.password, (err, result) => {
-      if (result === true) {
-        return cb(null, user);
-      } else {
-        return cb();
-      }
+schema.statics.authenticate = async (email, password) => {
+  const user = await mongoose.model("User").findOne({ email: email });
+  if (user) {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) reject(err);
+        resolve(result === true ? user : null);
+      });
     });
-  })
+    return user;
+  }
+
+  return null;
 };
 
 module.exports = mongoose.model("User", schema);

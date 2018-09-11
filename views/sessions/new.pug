@@ -11,10 +11,12 @@ block content
 
             form(action="/login", method="post")
               div(class="card-content")
+                if error
+                  div(class="notification is-danger")= error
                 div(class="field")
                   label(for="email", class="label") Email
                   div(class="control")
-                    input(type="text", id="email", name="email", class="input")
+                    input(type="text", id="email", name="email", class="input" autofocus="true")
                 div(class="field")
                   label(for="password", class="label") Password
                   div(class="control")

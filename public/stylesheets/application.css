@@ -6419,7 +6419,7 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
-body {
+html {
   background: #fdfdfe; }
 
 .justify-content-between {
@@ -6431,6 +6431,11 @@ body {
   height: 100%; }
   .survey .card-footer {
     margin-top: auto; }
+
+.error-text {
+  color: #ff3860;
+  font-size: 0.9rem;
+  margin-top: 3px; }
 
 .survey-page .header-box {
   margin-top: 40px;
