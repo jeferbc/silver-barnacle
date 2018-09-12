@@ -6437,6 +6437,14 @@ html {
   font-size: 0.9rem;
   margin-top: 3px; }
 
+.survey-actions {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 0.9rem; }
+  .survey-actions a {
+    margin-left: 5px; }
+
 .survey-page .header-box {
   margin-top: 40px;
   padding: 2rem; }

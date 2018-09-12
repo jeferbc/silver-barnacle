@@ -1,0 +1,62 @@
+extend ../layout
+
+block content
+  div(class="survey-form-page")
+    section(class="section")
+      div(class="container")
+        div(class="columns is-centered")
+          div(class="column is-half")
+            div(class="card")
+              div(class="card-header")
+                div(class="card-header-title") Edit Survey
+
+              form(action="/surveys/" + survey._id)
+                div(class="card-content")
+                  div(class="field")
+                    label(for="name", class="label") Name
+                    div: input(id="name" type="text", name="name", class="input", value=survey.name)
+                  div(class="field")
+                    label(for="description", class="label") Description
+                    div: textarea(id="description", name="description", class="textarea")=survey.description
+                  div(class="options")
+                    label(class="label") Options
+                    each option, index in survey.options
+                      div(class="field")
+                        input(type="text", name="options[" + index + "][text]", class="input", value=option.text)
+
+                div(class="card-footer")
+                  div(class="card-footer-item justify-content-between")
+                    a(href="/") Cancel
+                    button(type="submit", class="button is-primary") Update Survey
+
+  script.
+    $('.add-option').on("click", function(e) {
+      e.preventDefault();
+
+      $(".field-with-icon a").remove();
+      $(".field-with-icon").removeClass("field-with-icon");
+
+      var index = $(".options .field").length;
+      $(".options").append('<div class="field field-with-icon"><input type="text" name="options[' + index + '][text]" class="input" placeholder="Option ' + (index + 1) + '"><a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a></div>');
+    });
+
+    $('form').on("click", ".remove-option", function(e) {
+      e.preventDefault();
+
+      $(e.currentTarget).parents(".field").remove();
+      if ($(".options .field").length > 2) {
+        $(".options .field").last().addClass("field-with-icon").append('<a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a>');
+      }
+    });
+    
+    $('form').on("submit", function(e) {
+      e.preventDefault();
+      
+      $.ajax({
+        url: this.action,
+        method: "PATCH",
+        data: $(this).serialize()
+      }).done(function(resp) {
+        console.log(resp);
+      });
+    });

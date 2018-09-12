@@ -14,8 +14,12 @@ block content
           div(class="column is-4")
             div(class="card survey")
               div(class="card-content")
+                if user && survey.user && survey.user._id.equals(user._id) 
+                  div(class="survey-actions")
+                    a(href="/surveys/" + survey._id + "/edit"): i(class="far fa-edit")
+                    a(href="#"): i(class="far fa-trash-alt")
                 h4(class="title is-4 has-text-weight-light")= survey.name
-                p(class="subtitle is-7") Creado por user2@example.com
+                p(class="subtitle is-7") Creado por #{survey.user ? survey.user.email : "Anónimo"}
                 div(class="content")= truncate(survey.description, 160)
 
               div(class="card-footer")

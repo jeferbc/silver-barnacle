@@ -9,7 +9,7 @@ const truncate = (text, length) => {
 }
 
 exports.index = async (req, res) => {
-  const surveys = await Survey.find();
+  const surveys = await Survey.find().populate('user');
   res.render('surveys/index', { surveys: surveys, truncate: truncate });
 };
 
@@ -19,6 +19,7 @@ exports.new = (req, res) => {
 
 exports.create = async (req, res) => {
   const survey = new Survey(req.body);
+  survey.user = res.locals.user._id;
   try {
     await survey.save()
   } catch(err) {
@@ -30,7 +31,23 @@ exports.create = async (req, res) => {
 
 exports.show = async (req, res) => {
   const survey = await Survey.findOne({ _id: req.params.id });
-  res.render("surveys/show", { survey: survey });
+  res.render("surveys/show", { survey });
+}
+
+exports.edit = async (req, res) => {
+  const survey = await Survey.findOne({ _id: req.params.id });
+  res.render("surveys/edit", { survey });
+}
+
+exports.update = async (req, res) => {
+  console.log(req.body);
+  const data = {
+    name: req.body.name,
+    description: req.body.description,
+    options: req.body.options
+  };
+
+
 }
 
 exports.vote = async (req, res) => {
