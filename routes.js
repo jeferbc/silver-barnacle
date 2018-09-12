@@ -21,5 +21,6 @@ router.post("/surveys", middlewares.requireUser, surveys.create);
 router.get("/surveys/:id", surveys.show);
 router.post("/surveys/:id/vote", surveys.vote);
 router.get("/surveys/:id/results", surveys.results);
+router.delete("/surveys/:id", surveys.remove)
 
 module.exports = router;

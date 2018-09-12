@@ -6445,6 +6445,12 @@ html {
   .survey-actions a {
     margin-left: 5px; }
 
+.messages {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  width: 350px; }
+
 .survey-page .header-box {
   margin-top: 40px;
   padding: 2rem; }

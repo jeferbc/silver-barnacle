@@ -28,6 +28,13 @@ html { background: #fdfdfe; }
   a { margin-left: 5px; }
 }
 
+.messages {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  width: 350px;
+}
+
 .survey-page {
   .header-box {
     margin-top: 40px;

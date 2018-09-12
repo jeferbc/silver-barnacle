@@ -11,12 +11,12 @@ block content
 
       div(class="columns is-multiline")
         each survey in surveys
-          div(class="column is-4")
+          div(id="survey-" + survey._id, class="column is-4")
             div(class="card survey")
               div(class="card-content")
                 if user && survey.user && survey.user._id.equals(user._id) 
                   div(class="survey-actions")
-                    a(href="#"): i(class="far fa-trash-alt")
+                    a(href="#", class="delete-survey", data-id=survey._id): i(class="far fa-trash-alt")
                 h4(class="title is-4 has-text-weight-light")= survey.name
                 p(class="subtitle is-7") Creado por #{survey.user ? survey.user.email : "Anónimo"}
                 div(class="content")= truncate(survey.description, 160)
@@ -29,3 +29,27 @@ block content
                   a(href="/surveys/" + survey._id class="card-footer-item") Vote
         else
           div(class="column") No surveys found
+
+  script.
+    $('.delete-survey').on("click", function(e) {
+      e.preventDefault();
+      
+      if (!confirm("Are you sure to delete this survey?")) {
+        return;
+      }
+      
+      var id = $(e.currentTarget).data("id");
+      $.ajax({
+        url: "/surveys/" + id,
+        method: "DELETE",
+      }).done(function(resp) {
+        $("#survey-" + id).remove();
+        $(".messages").append('<div class="notification is-primary"><button class="delete"></button> The survey was removed successully</div>');
+      });
+    });
+    
+    $(".messages").on("click", ".notification .delete", function(e) {
+      e.preventDefault();
+      
+      $(".messages").empty();
+    });

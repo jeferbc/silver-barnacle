@@ -48,3 +48,8 @@ exports.results = async (req, res) => {
   const survey = await Survey.findOne({ _id: req.params.id });
   res.render("surveys/results", { survey: survey });
 }
+
+exports.remove = async (req, res) => {
+  await Survey.deleteOne({ _id: req.params.id });
+  res.status(204).send({});
+};
