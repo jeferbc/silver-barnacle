@@ -19,8 +19,6 @@ router.get("/surveys", surveys.index);
 router.get("/surveys/new", middlewares.requireUser, surveys.new);
 router.post("/surveys", middlewares.requireUser, surveys.create);
 router.get("/surveys/:id", surveys.show);
-router.get("/surveys/:id/edit", surveys.edit);
-router.patch("/surveys/:id", surveys.update);
 router.post("/surveys/:id/vote", surveys.vote);
 router.get("/surveys/:id/results", surveys.results);
 

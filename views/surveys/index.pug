@@ -16,7 +16,6 @@ block content
               div(class="card-content")
                 if user && survey.user && survey.user._id.equals(user._id) 
                   div(class="survey-actions")
-                    a(href="/surveys/" + survey._id + "/edit"): i(class="far fa-edit")
                     a(href="#"): i(class="far fa-trash-alt")
                 h4(class="title is-4 has-text-weight-light")= survey.name
                 p(class="subtitle is-7") Creado por #{survey.user ? survey.user.email : "Anónimo"}
@@ -24,6 +23,9 @@ block content
 
               div(class="card-footer")
                 p(class="card-footer-item has-text-grey-light has-text-weight-semibold")= survey.votes() + " votes"
-                a(href="/surveys/" + survey._id class="card-footer-item") Vote
+                if user && survey.user && survey.user._id.equals(user._id)
+                  a(href="/surveys/" + survey._id + "/results" class="card-footer-item") Results
+                else
+                  a(href="/surveys/" + survey._id class="card-footer-item") Vote
         else
           div(class="column") No surveys found

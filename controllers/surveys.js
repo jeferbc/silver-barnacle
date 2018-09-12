@@ -34,22 +34,6 @@ exports.show = async (req, res) => {
   res.render("surveys/show", { survey });
 }
 
-exports.edit = async (req, res) => {
-  const survey = await Survey.findOne({ _id: req.params.id });
-  res.render("surveys/edit", { survey });
-}
-
-exports.update = async (req, res) => {
-  console.log(req.body);
-  const data = {
-    name: req.body.name,
-    description: req.body.description,
-    options: req.body.options
-  };
-
-
-}
-
 exports.vote = async (req, res) => {
   const answer = req.body.answer;
 
