@@ -6467,3 +6467,14 @@ html {
 
 .survey-page .form-actions {
   margin-top: 30px; }
+
+.survey-form-page .field-with-icon {
+  display: flex;
+  align-items: center; }
+  .survey-form-page .field-with-icon a {
+    padding: 0 0 0 8px; }
+
+.survey-form-page .add-option {
+  display: inline-block;
+  font-size: 0.9rem;
+  padding: 8px 3px; }

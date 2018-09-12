@@ -58,3 +58,18 @@ html { background: #fdfdfe; }
 
   .form-actions { margin-top: 30px; }
 }
+
+.survey-form-page {
+  .field-with-icon {
+    display: flex;
+    align-items: center;
+
+    a { padding: 0 0 0 8px; }
+  }
+
+  .add-option {
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 8px 3px;
+  }
+}

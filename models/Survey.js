@@ -7,22 +7,25 @@ const schema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true
+    required: [true, "is required"]
   },
   description: {
     type: String,
-    required: true
+    required: [true, "is required"]
   },
-  options: [{
-    text: {
-      type: String,
-      required: true
-    },
-    votes: {
-      type: Number,
-      default: 0
-    }
-  }]
+  options: {
+    type: [{
+      text: {
+        type: String,
+        required: true
+      },
+      votes: {
+        type: Number,
+        default: 0
+      }
+    }],
+    validate: [v => v.length > 1, 'at least two options are required']
+  }
 });
 
 schema.methods.votes = function() {

@@ -1,28 +1,52 @@
 extend ../layout
 
 block content
-  section(class="section")
-    div(class="container")
-      div(class="columns is-centered")
-        div(class="column is-half")
-          div(class="card")
-            div(class="card-header")
-              div(class="card-header-title") New Survey
+  div(class="survey-form-page")
+    section(class="section")
+      div(class="container")
+        div(class="columns is-centered")
+          div(class="column is-half")
+            div(class="card")
+              div(class="card-header")
+                div(class="card-header-title") New Survey
 
-            form(action="/surveys", method="post")
-              div(class="card-content")
-                div(class="field")
-                  label(for="name", class="label") Name
-                  div: input(id="name" type="text", name="name", class="input")
-                div(class="field")
-                  label(for="description", class="label") Description
-                  div: textarea(id="description", name="description", class="textarea")
-                div
-                  label(class="label") Options
-                  div(class="field"): input(type="text", name="options[0][text]", class="input")
-                  div(class="field"): input(type="text", name="options[1][text]", class="input")
+              form(action="/surveys", method="post")
+                div(class="card-content")
+                  div(class="field")
+                    label(for="name", class="label") Name
+                    div: input(id="name" type="text", name="name", class="input")
+                  div(class="field")
+                    label(for="description", class="label") Description
+                    div: textarea(id="description", name="description", class="textarea")
+                  div(class="options")
+                    label(class="label") Options
+                    div(class="field"): input(type="text", name="options[0][text]", class="input", placeholder="Option 1")
+                    div(class="field"): input(type="text", name="options[1][text]", class="input", placeholder="Option 2")
 
-              div(class="card-footer")
-                div(class="card-footer-item justify-content-between")
-                  a(href="/") Cancel
-                  button(type="submit", class="button is-primary") Create Survey
+                  div
+                    a(href="#", class="add-option") Add option
+
+                div(class="card-footer")
+                  div(class="card-footer-item justify-content-between")
+                    a(href="/") Cancel
+                    button(type="submit", class="button is-primary") Create Survey
+
+  script.
+    $('.add-option').on("click", function(e) {
+      e.preventDefault();
+
+      $(".field-with-icon a").remove();
+      $(".field-with-icon").removeClass("field-with-icon");
+
+      var index = $(".options .field").length;
+      $(".options").append('<div class="field field-with-icon"><input type="text" name="options[' + index + '][text]" class="input" placeholder="Option ' + (index + 1) + '"><a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a></div>');
+    });
+
+    $('form').on("click", ".remove-option", function(e) {
+      e.preventDefault();
+
+      $(e.currentTarget).parents(".field").remove();
+      if ($(".options .field").length > 2) {
+        $(".options .field").last().addClass("field-with-icon").append('<a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a>');
+      }
+    });
