@@ -1,5 +1,9 @@
 extends ../layout
 
+block head
+  meta(property="og:title", content=survey.name)
+  meta(property="og:description", content=survey.description)
+
 block content
   div(class="survey-page")
     section(class="section")

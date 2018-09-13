@@ -6,8 +6,12 @@ block content
       div(class="container")
         div(class="columns is-centered")
           div(class="column is-two-thirds")
-            div
+            div(class="survey-page-header")
               a(href="/") &larr; Back
+              div(class="share-icons")
+                a(href="#", class="share-url icon"): i(class="fas fa-link")
+                a(href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:3000/surveys/" + survey._id + "&title=" + survey.name, class="social icon", data-network="facebook"): i(class="fab fa-facebook-square")
+                a(href="https://twitter.com/share?url=http://localhost:3000/surveys/" + survey._id + "&text=" + survey.name, class="social icon", data-network="twitter"): i(class="fab fa-twitter")
 
             div(class="box header-box")
               h1(class="title is-size-3 has-text-weight-light")= survey.name
@@ -20,9 +24,46 @@ block content
                   div(class="option")
                     div(class="option-label") #{option.text}
                       span #{survey.options[i].votes} votes
-                    div(style="display: flex;")
+                    div(class="progress-bar")
                       div(class="option-bar" style="width: " + survey.optionPercentage(i) + "%;")
                         if survey.optionPercentage(i) >= 10
                           span= Math.round(survey.optionPercentage(i)) + "%"
                       if survey.optionPercentage(i) < 10
-                        div(style="color: #999; font-size: 0.8rem; font-weight: 600; margin-left: 7px; padding: 9px 0;")= Math.round(survey.optionPercentage(i)) + "%"
+                        div(class="percentage-out")= Math.round(survey.optionPercentage(i)) + "%"
+
+      div(id="share-url-modal", class="modal")
+        div(class="modal-background")
+        div(class="modal-content")
+          div(class="box")
+            p Copy the following URL to share this poll:
+            pre http://localhost:3000/surveys/#{survey._id}
+        button(class="modal-close is-large", aria-label="close")
+
+  script.
+    $('.share-url').on("click", function(e) {
+      e.preventDefault();
+      $("#share-url-modal").addClass("is-active");
+    });
+    
+    $('.modal-background, .modal-close').on("click", function(e) {
+      e.preventDefault();
+      $("#share-url-modal").removeClass("is-active");
+    });
+    
+    $('a.social').on("click", function(e) {
+      e.preventDefault();
+      var href= $(this).attr("href");
+      var network = $(this).data("network");
+      
+      var networks = {
+        facebook: { width : 600, height : 300 },
+        twitter: { width : 600, height : 254 }
+      };
+      
+      var popup = function(network) {
+        var options = "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,";
+        window.open(href, '', options + "height=" + networks[network].height + ",width=" + networks[network].width);
+      }
+
+      popup(network);
+    });

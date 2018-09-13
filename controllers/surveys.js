@@ -8,6 +8,10 @@ const truncate = (text, length) => {
   return text;
 }
 
+const encodeURI = (text) => {
+  return encodeURIComponent(text);
+}
+
 exports.index = async (req, res) => {
   const surveys = await Survey.find().populate('user');
   res.render('surveys/index', { surveys: surveys, truncate: truncate });
@@ -26,7 +30,7 @@ exports.create = async (req, res) => {
     console.log(err)
   }
 
-  res.redirect('/surveys');
+  res.redirect(`/surveys/${survey._id}/results`);
 };
 
 exports.show = async (req, res) => {
@@ -46,7 +50,7 @@ exports.vote = async (req, res) => {
 
 exports.results = async (req, res) => {
   const survey = await Survey.findOne({ _id: req.params.id });
-  res.render("surveys/results", { survey: survey });
+  res.render("surveys/results", { survey: survey, encodeURI: encodeURI });
 }
 
 exports.remove = async (req, res) => {
