@@ -10,7 +10,7 @@ const assets = require("connect-assets");
 require('mincer-babel')(assets.Mincer);
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/surveys', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/surveys', { useNewUrlParser: true });
 
 app.set('view engine', 'pug');
 app.set('views', 'views');
