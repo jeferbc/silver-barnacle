@@ -6,6 +6,9 @@ require("./models/Survey");
 require("./models/User");
 const routes = require('./routes');
 
+const assets = require("connect-assets");
+require('mincer-babel')(assets.Mincer);
+
 const app = express();
 mongoose.connect('mongodb://localhost:27017/surveys', { useNewUrlParser: true });
 
@@ -14,7 +17,7 @@ app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(assets());
 
 app.use('/', routes);
 

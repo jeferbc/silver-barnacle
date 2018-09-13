@@ -32,21 +32,4 @@ block content
                     button(type="submit", class="button is-primary") Create Survey
 
   script.
-    $('.add-option').on("click", function(e) {
-      e.preventDefault();
-
-      $(".field-with-icon a").remove();
-      $(".field-with-icon").removeClass("field-with-icon");
-
-      var index = $(".options .field").length;
-      $(".options").append('<div class="field field-with-icon"><input type="text" name="options[' + index + '][text]" class="input" placeholder="Option ' + (index + 1) + '"><a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a></div>');
-    });
-
-    $('form').on("click", ".remove-option", function(e) {
-      e.preventDefault();
-
-      $(e.currentTarget).parents(".field").remove();
-      if ($(".options .field").length > 2) {
-        $(".options .field").last().addClass("field-with-icon").append('<a href="#" class="remove-option"><i class="far fa-trash-alt"></i></a>');
-      }
-    });
+    new SurveyFormView();

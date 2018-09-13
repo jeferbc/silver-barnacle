@@ -31,25 +31,4 @@ block content
           div(class="column") No surveys found
 
   script.
-    $('.delete-survey').on("click", function(e) {
-      e.preventDefault();
-      
-      if (!confirm("Are you sure to delete this survey?")) {
-        return;
-      }
-      
-      var id = $(e.currentTarget).data("id");
-      $.ajax({
-        url: "/surveys/" + id,
-        method: "DELETE",
-      }).done(function(resp) {
-        $("#survey-" + id).remove();
-        $(".messages").append('<div class="notification is-primary"><button class="delete"></button> The survey was removed successully</div>');
-      });
-    });
-    
-    $(".messages").on("click", ".notification .delete", function(e) {
-      e.preventDefault();
-      
-      $(".messages").empty();
-    });
+    new SurveysView();
