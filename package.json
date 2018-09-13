@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "9.2.0"
+  },
   "scripts": {
     "css": "node-sass --omit-source-map-url sass/application.scss public/stylesheets/application.css",
     "start": "node index.js",
