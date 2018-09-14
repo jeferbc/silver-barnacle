@@ -9,12 +9,13 @@
   "scripts": {
     "css": "node-sass --omit-source-map-url sass/application.scss public/stylesheets/application.css",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test MONGODB_URI=mongodb://localhost:27017/surveys_test jest --forceExit --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.26.3",
     "bcrypt": "^3.0.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
@@ -25,9 +26,13 @@
   },
   "devDependencies": {
     "bulma": "^0.7.1",
+    "cheerio": "^1.0.0-rc.2",
     "connect-assets": "^5.4.0",
     "csswring": "^7.0.0",
+    "jest": "^23.6.0",
     "node-sass": "^4.9.3",
+    "superagent": "^3.8.3",
+    "supertest": "^3.3.0",
     "uglify-js": "^2.8.22"
   }
 }

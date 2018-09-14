@@ -14,7 +14,7 @@ block content
                 div(class="card-content")
                   div(class="field")
                     label(for="name", class="label") Name
-                    div: input(id="name" type="text", name="name", class="input")
+                    div: input(id="name" type="text", name="name", class="input" + (errors && errors.name ? " is-danger" : ""))
                   div(class="field")
                     label(for="description", class="label") Description
                     div: textarea(id="description", name="description", class="textarea")

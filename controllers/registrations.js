@@ -5,7 +5,7 @@ exports.new = (req, res) => {
   res.render("registrations/new");
 }
 
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -18,6 +18,7 @@ exports.create = async (req, res) => {
     const user = await User.create(data);
     res.redirect("/login");
   } catch (e) {
+    console.log(e);
     if (e.name == "ValidationError") {
       res.render("registrations/new", { errors: e.errors });
     } else {

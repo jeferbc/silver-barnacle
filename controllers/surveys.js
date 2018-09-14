@@ -21,13 +21,18 @@ exports.new = (req, res) => {
   res.render("surveys/new")
 }
 
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
   const survey = new Survey(req.body);
   survey.user = res.locals.user._id;
   try {
     await survey.save()
-  } catch(err) {
-    console.log(err)
+  } catch(e) {
+    if (e.name == "ValidationError") {
+      res.render("surveys/new", { errors: e.errors });
+      return;
+    } else {
+      return next(e);
+    }
   }
 
   res.redirect(`/surveys/${survey._id}/results`);
