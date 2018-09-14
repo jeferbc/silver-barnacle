@@ -5,7 +5,7 @@ html { background: #fdfdfe; }
 
 .justify-content-between { justify-content: space-between; }
 
-.survey {
+.poll {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -19,7 +19,7 @@ html { background: #fdfdfe; }
   margin-top: 3px;
 }
 
-.survey-actions {
+.poll-actions {
   position: absolute;
   right: 10px;
   top: 5px;
@@ -35,8 +35,8 @@ html { background: #fdfdfe; }
   width: 350px;
 }
 
-.survey-page {
-  .survey-page-header {
+.poll-page {
+  .poll-page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,7 +110,7 @@ html { background: #fdfdfe; }
   }
 }
 
-.survey-form-page {
+.poll-form-page {
   .field-with-icon {
     display: flex;
     align-items: center;

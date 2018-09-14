@@ -1,27 +1,27 @@
-class SurveysView {
+class PollsView {
   constructor() {
-    $('.delete-survey').on("click", this.deleteSurvey);
+    $('.delete-poll').on("click", this.deletePoll);
   }
 
-  deleteSurvey(e) {
+  deletePoll(e) {
     e.preventDefault();
 
-    if (!confirm("Are you sure to delete this survey?")) {
+    if (!confirm("Are you sure to delete this poll?")) {
       return;
     }
 
     var id = $(e.currentTarget).data("id");
     $.ajax({
-      url: "/surveys/" + id,
+      url: "/polls/" + id,
       method: "DELETE",
     }).done((resp) => {
-      $("#survey-" + id).remove();
-      $(".messages").append('<div class="notification is-primary"><button class="delete"></button> The survey was removed successully</div>');
+      $("#poll-" + id).remove();
+      $(".messages").append('<div class="notification is-primary"><button class="delete"></button> The poll was removed successully</div>');
     });
   }
 }
 
-class SurveyFormView {
+class PollFormView {
   constructor() {
     $('.add-option').on("click", this.addOption);
     $('form').on("click", ".remove-option", this.removeOption);

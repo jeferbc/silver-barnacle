@@ -1,11 +1,11 @@
 extends ../layout
 
 block head
-  meta(property="og:title", content=survey.name)
-  meta(property="og:description", content=survey.description)
+  meta(property="og:title", content=poll.name)
+  meta(property="og:description", content=poll.description)
 
 block content
-  div(class="survey-page")
+  div(class="poll-page")
     section(class="section")
       div(class="container")
         div(class="columns is-centered")
@@ -14,15 +14,15 @@ block content
               a(href="/") &larr; Back
 
             div(class="box header-box")
-              h1(class="title is-size-3 has-text-weight-light")= survey.name
+              h1(class="title is-size-3 has-text-weight-light")= poll.name
               p(class="subtitle is-6 has-text-grey-light") Creado por user2@example.com
-              p= survey.description
+              p= poll.description
 
-            form(action=`/surveys/${survey._id}/vote` method="post")
+            form(action=`/polls/${poll._id}/vote` method="post")
               div(class="box options-box has-background-white")
                 p Selecciona una opción:
                 div(class="options")
-                  each option, i in survey.options
+                  each option, i in poll.options
                     div(class="option")
                       label(class="radio is-size-6")
                         input(type="radio" name="answer" value=i)

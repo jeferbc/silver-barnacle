@@ -1,16 +1,16 @@
 extend ../layout
 
 block content
-  div(class="survey-form-page")
+  div(class="poll-form-page")
     section(class="section")
       div(class="container")
         div(class="columns is-centered")
           div(class="column is-half")
             div(class="card")
               div(class="card-header")
-                div(class="card-header-title") New Survey
+                div(class="card-header-title") New Poll
 
-              form(action="/surveys", method="post")
+              form(action="/polls", method="post")
                 div(class="card-content")
                   div(class="field")
                     label(for="name", class="label") Name
@@ -29,7 +29,7 @@ block content
                 div(class="card-footer")
                   div(class="card-footer-item justify-content-between")
                     a(href="/") Cancel
-                    button(type="submit", class="button is-primary") Create Survey
+                    button(type="submit", class="button is-primary") Create Poll
 
   script.
-    new SurveyFormView();
+    new PollFormView();

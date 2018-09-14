@@ -3,11 +3,11 @@ const router = express.Router();
 const middlewares = require('./middlewares');
 const registrations = require('./controllers/registrations');
 const sessions = require('./controllers/sessions');
-const surveys = require('./controllers/surveys');
+const polls = require('./controllers/polls');
 
 router.use(middlewares.setUser);
 
-router.get("/", surveys.index);
+router.get("/", polls.index);
 
 router.get("/register", registrations.new);
 router.post("/register", registrations.create);
@@ -15,12 +15,12 @@ router.get("/login", sessions.new);
 router.post("/login", sessions.create);
 router.get("/logout", middlewares.requireUser, sessions.destroy);
 
-router.get("/surveys", surveys.index);
-router.get("/surveys/new", middlewares.requireUser, surveys.new);
-router.post("/surveys", middlewares.requireUser, surveys.create);
-router.get("/surveys/:id", surveys.show);
-router.post("/surveys/:id/vote", surveys.vote);
-router.get("/surveys/:id/results", surveys.results);
-router.delete("/surveys/:id", surveys.remove)
+router.get("/polls", polls.index);
+router.get("/polls/new", middlewares.requireUser, polls.new);
+router.post("/polls", middlewares.requireUser, polls.create);
+router.get("/polls/:id", polls.show);
+router.post("/polls/:id/vote", polls.vote);
+router.get("/polls/:id/results", polls.results);
+router.delete("/polls/:id", polls.remove)
 
 module.exports = router;

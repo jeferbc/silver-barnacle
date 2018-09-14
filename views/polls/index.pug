@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  section(class="section")
+    div(class="container")
+      div(class="level")
+        div(class="level-left")
+          if user
+            a(href="/polls/new" class="button is-primary") New Poll
+        div(class="level-right")
+
+      div(class="columns is-multiline")
+        each poll in polls
+          div(id="poll-" + poll._id, class="column is-4")
+            div(class="card poll")
+              div(class="card-content")
+                if user && poll.user && poll.user._id.equals(user._id) 
+                  div(class="poll-actions")
+                    a(href="#", class="delete-poll", data-id=poll._id): i(class="far fa-trash-alt")
+                h4(class="title is-4 has-text-weight-light")= poll.name
+                p(class="subtitle is-7") Creado por #{poll.user ? poll.user.email : "Anónimo"}
+                div(class="content")= truncate(poll.description, 160)
+
+              div(class="card-footer")
+                p(class="card-footer-item has-text-grey-light has-text-weight-semibold")= poll.votes() + " votes"
+                if user && poll.user && poll.user._id.equals(user._id)
+                  a(href="/polls/" + poll._id + "/results" class="card-footer-item") Results
+                else
+                  a(href="/polls/" + poll._id class="card-footer-item") Vote
+        else
+          div(class="column") No polls found
+
+  script.
+    new PollsView();

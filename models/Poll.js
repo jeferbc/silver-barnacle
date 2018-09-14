@@ -42,4 +42,4 @@ schema.methods.optionPercentage = function(index) {
   return 0;
 }
 
-module.exports = mongoose.model("Survey", schema);
+module.exports = mongoose.model("Poll", schema);
