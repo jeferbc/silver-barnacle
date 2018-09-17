@@ -1,10 +1,18 @@
 const request = require('supertest');
 const cheerio = require('cheerio')
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const Poll = require("../../models/Poll");
 const app = require('../../app');
+
+const signIn = async (credentials) => {
+  const r1 = await request(app)
+      .post('/login')
+      .type("form")
+      .send(credentials);
+
+  return r1.headers['set-cookie'];
+}
 
 beforeEach(async () => {
   for (var i in mongoose.connection.collections) {
@@ -54,11 +62,14 @@ describe('GET /', () => {
   });
 
   test("shows new poll button if authenticated", async () => {
-    const user = await User.create({ email: "pedro@gmail.com", password: "test1234" });
-    const token = jwt.sign({ userId: user._id }, "secretcode");
+    const credentials = { email: "pedro@gmail.com", password: "test1234" };
+    const user = await User.create(credentials);
+    const cookie = await signIn(credentials);
+
     const response = await request(app)
       .get('/')
-      .set("Cookie", [`token=${token}`]);
+      .set("Cookie", cookie);
+    expect(response.statusCode).toBe(200);
 
     const $ = cheerio.load(response.text);
     expect($('a[href="/polls/new"]').length).toBe(1);
@@ -73,23 +84,27 @@ describe("GET /polls/new", () => {
   });
 
   test("responds with success code if authenticated", async () => {
-    const user = await User.create({ email: "pedro@gmail.com", password: "test1234" });
-    const token = jwt.sign({ userId: user._id }, "secretcode");
+    const credentials = { email: "pedro@gmail.com", password: "test1234" };
+    const user = await User.create(credentials);
+    const cookie = await signIn(credentials);
+
     const response = await request(app)
         .get("/polls/new")
-        .set("Cookie", [`token=${token}`]);
+        .set("Cookie", cookie);
     expect(response.statusCode).toBe(200);
   });
 });
 
 describe("POST /polls", async () => {
   test("creates a poll and redirects", async () => {
-    const user = await User.create({ email: "pedro@gmail.com", password: "test1234" });
-    const token = jwt.sign({ userId: user._id }, "secretcode");
+    const credentials = { email: "pedro@gmail.com", password: "test1234" };
+    const user = await User.create(credentials);
+    const cookie = await signIn(credentials);
+
     const response = await request(app)
         .post("/polls")
         .type("form")
-        .set("Cookie", [`token=${token}`])
+        .set("Cookie", cookie)
         .send({ name: "Poll 1" })
         .send({ description: "Desc 1" })
         .send({ "options[0][text]": "Option 1" })
@@ -107,12 +122,14 @@ describe("POST /polls", async () => {
   });
 
   test("shows errors in form", async () => {
-    const user = await User.create({ email: "pedro@gmail.com", password: "test1234" });
-    const token = jwt.sign({ userId: user._id }, "secretcode");
+    const credentials = { email: "pedro@gmail.com", password: "test1234" };
+    const user = await User.create(credentials);
+    const cookie = await signIn(credentials);
+
     const response = await request(app)
         .post("/polls")
         .type("form")
-        .set("Cookie", [`token=${token}`]);
+        .set("Cookie", cookie);
 
     expect(response.statusCode).toBe(200);
 

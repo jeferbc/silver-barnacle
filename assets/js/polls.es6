@@ -16,7 +16,7 @@ class PollsView {
       method: "DELETE",
     }).done((resp) => {
       $("#poll-" + id).remove();
-      $(".messages").append('<div class="notification is-primary"><button class="delete"></button> The poll was removed successully</div>');
+      growl("success", "The poll was removed successully");
     });
   }
 }

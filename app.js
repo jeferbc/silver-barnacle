@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
+const session = require('express-session')
+const flash = require("flash");
 const path = require('path');
 require("./models/Poll");
 require("./models/User");
@@ -16,7 +17,8 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(session({ secret: "secretcode", resave: false, saveUninitialized: false }));
+app.use(flash());
 app.use(assets());
 
 app.use('/', routes);module.exports = app;

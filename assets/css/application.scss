@@ -5,6 +5,15 @@ html { background: #fdfdfe; }
 
 .justify-content-between { justify-content: space-between; }
 
+.messages {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  width: 350px;
+}
+
+.notification { z-index: 9999; }
+
 .poll {
   display: flex;
   flex-direction: column;
@@ -26,13 +35,6 @@ html { background: #fdfdfe; }
   font-size: 0.9rem;
 
   a { margin-left: 5px; }
-}
-
-.messages {
-  position: absolute;
-  top: 70px;
-  right: 30px;
-  width: 350px;
 }
 
 .poll-page {

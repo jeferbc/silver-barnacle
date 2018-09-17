@@ -14,7 +14,7 @@ const encodeURI = (text) => {
 
 exports.index = async (req, res) => {
   const polls = await Poll.find().populate('user');
-  res.render('polls/index', { polls: polls, truncate: truncate });
+  res.render('polls/index', { polls, truncate });
 };
 
 exports.new = (req, res) => {
@@ -25,22 +25,22 @@ exports.create = async (req, res, next) => {
   const poll = new Poll(req.body);
   poll.user = res.locals.user._id;
   try {
-    await poll.save()
+    await poll.save();
+
+    req.flash("success", "The poll was created successfully");
+    res.redirect(`/polls/${poll._id}/results`);
   } catch(e) {
     if (e.name == "ValidationError") {
       res.render("polls/new", { errors: e.errors });
-      return;
     } else {
       return next(e);
     }
   }
-
-  res.redirect(`/polls/${poll._id}/results`);
 };
 
 exports.show = async (req, res) => {
   const poll = await Poll.findOne({ _id: req.params.id });
-  res.render("polls/show", { poll });
+  res.render("polls/show", { poll, flash: req.flash });
 }
 
 exports.vote = async (req, res) => {

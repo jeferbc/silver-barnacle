@@ -25,3 +25,7 @@ html
                 a(href="/register" class="button is-info") Register
 
     block content
+      
+    script
+      while message = flash.shift()
+        | growl("#{message.type}", "#{message.message}");

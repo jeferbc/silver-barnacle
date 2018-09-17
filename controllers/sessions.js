@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const User = mongoose.model('User');
 
 exports.new = (req, res) => {
@@ -13,8 +12,7 @@ exports.create = async (req, res, next) => {
   try {
     const user = await User.authenticate(email, password);
     if (user) {
-      var token = jwt.sign({ userId: user._id }, "secretcode");
-      res.cookie("token", token, { expires: new Date(Date.now() + 24*60*60*1000), httpOnly: true });
+      req.session.userId = user._id;
       return res.redirect("/");
     } else {
       res.render("sessions/new", { error: "Wrong email or password. Try again!" });

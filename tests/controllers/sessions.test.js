@@ -26,8 +26,7 @@ describe("POST /login", () => {
     const response = await request(app)
         .post('/login')
         .type("form")
-        .send({ email: "pedro@gmail.com" })
-        .send({ password: "test1234" });
+        .send({ email: "pedro@gmail.com", password: "test1234" });
 
     expect(response.statusCode).toBe(302);
     expect(response.headers.location).toBe("/");
