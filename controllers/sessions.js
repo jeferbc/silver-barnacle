@@ -23,6 +23,8 @@ exports.create = async (req, res, next) => {
 };
 
 exports.destroy = (req, res) => {
-  res.clearCookie("token");
+  res.session = null;
+  res.clearCookie("session");
+  res.clearCookie("session.sig");
   res.redirect("/login");
 };

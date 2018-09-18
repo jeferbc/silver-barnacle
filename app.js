@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require('express-session')
+const cookieSession = require('cookie-session');
 const flash = require("flash");
 const path = require('path');
 require("./models/Poll");
@@ -17,8 +17,10 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: "secretcode", resave: false, saveUninitialized: false }));
+app.use(cookieSession({ secret: "secretcode" }));
 app.use(flash());
 app.use(assets());
 
-app.use('/', routes);module.exports = app;
+app.use('/', routes);
+
+module.exports = app;

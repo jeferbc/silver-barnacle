@@ -1,17 +1,22 @@
 const request = require('supertest');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 const mongoose = require("mongoose");
 const User = require("../../models/User");
 const Poll = require("../../models/Poll");
 const app = require('../../app');
 
+request.agent.prototype._saveCookies = function(res) {
+  const cookies = res.headers['set-cookie'];
+  if (cookies) this.jar.setCookies(cookies[0].split(","));
+};
+
 const signIn = async (credentials) => {
-  const r1 = await request(app)
-      .post('/login')
+  const agent = request.agent(app);
+  await agent.post('/login')
       .type("form")
       .send(credentials);
 
-  return r1.headers['set-cookie'];
+  return agent;
 }
 
 beforeEach(async () => {
@@ -64,11 +69,9 @@ describe('GET /', () => {
   test("shows new poll button if authenticated", async () => {
     const credentials = { email: "pedro@gmail.com", password: "test1234" };
     const user = await User.create(credentials);
-    const cookie = await signIn(credentials);
+    const agent = await signIn(credentials);
 
-    const response = await request(app)
-      .get('/')
-      .set("Cookie", cookie);
+    const response = await agent.get('/');
     expect(response.statusCode).toBe(200);
 
     const $ = cheerio.load(response.text);
@@ -86,11 +89,9 @@ describe("GET /polls/new", () => {
   test("responds with success code if authenticated", async () => {
     const credentials = { email: "pedro@gmail.com", password: "test1234" };
     const user = await User.create(credentials);
-    const cookie = await signIn(credentials);
+    const agent = await signIn(credentials);
 
-    const response = await request(app)
-        .get("/polls/new")
-        .set("Cookie", cookie);
+    const response = await agent.get("/polls/new");
     expect(response.statusCode).toBe(200);
   });
 });
@@ -99,12 +100,10 @@ describe("POST /polls", async () => {
   test("creates a poll and redirects", async () => {
     const credentials = { email: "pedro@gmail.com", password: "test1234" };
     const user = await User.create(credentials);
-    const cookie = await signIn(credentials);
+    const agent = await signIn(credentials);
 
-    const response = await request(app)
-        .post("/polls")
+    const response = await agent.post("/polls")
         .type("form")
-        .set("Cookie", cookie)
         .send({ name: "Poll 1" })
         .send({ description: "Desc 1" })
         .send({ "options[0][text]": "Option 1" })
@@ -124,12 +123,9 @@ describe("POST /polls", async () => {
   test("shows errors in form", async () => {
     const credentials = { email: "pedro@gmail.com", password: "test1234" };
     const user = await User.create(credentials);
-    const cookie = await signIn(credentials);
+    const agent = await signIn(credentials);
 
-    const response = await request(app)
-        .post("/polls")
-        .type("form")
-        .set("Cookie", cookie);
+    const response = await agent.post("/polls").type("form");
 
     expect(response.statusCode).toBe(200);
 
