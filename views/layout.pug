@@ -27,5 +27,6 @@ html
     block content
       
     script
-      while message = flash.shift()
-        | growl("#{message.type}", "#{message.message}");
+      if flash && flash.shift
+        while message = flash.shift()
+          | growl("#{message.type}", "#{message.message}");
