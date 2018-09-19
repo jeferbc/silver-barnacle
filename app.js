@@ -17,7 +17,7 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieSession({ secret: "secretcode" }));
+app.use(cookieSession({ secret: process.env.SECRET || "secretcode" }));
 app.use(flash());
 app.use(assets());
 
