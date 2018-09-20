@@ -1,6 +1,7 @@
 extend ../layout
 
 block content
+  include ../mixins.pug
   div(class="poll-form-page")
     section(class="section")
       div(class="container")
@@ -14,14 +15,19 @@ block content
                 div(class="card-content")
                   div(class="field")
                     label(for="name", class="label") Name
-                    div: input(id="name" type="text", name="name", class="input" + (errors && errors.name ? " is-danger" : ""))
+                    input(id="name" type="text", name="name", class="input" + (errors && errors.name ? " is-danger" : ""))
+                    +error(errors, "name")
                   div(class="field")
                     label(for="description", class="label") Description
                     div: textarea(id="description", name="description", class="textarea")
                   div(class="options")
                     label(class="label") Options
-                    div(class="field"): input(type="text", name="options[0][text]", class="input", placeholder="Option 1")
-                    div(class="field"): input(type="text", name="options[1][text]", class="input", placeholder="Option 2")
+                    div(class="field")
+                      input(type="text", name="options[0][text]", class="input" + (errors && errors["options.0.text"] ? " is-danger" : ""), placeholder="Option 1")
+                      +error(errors, "options.0.text")
+                    div(class="field")
+                      input(type="text", name="options[1][text]", class="input" + (errors && errors["options.1.text"] ? " is-danger" : ""), placeholder="Option 2")
+                      +error(errors, "options.1.text")
 
                   div
                     a(href="#", class="add-option") Add option

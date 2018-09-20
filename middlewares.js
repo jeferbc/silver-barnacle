@@ -3,7 +3,6 @@ const User = mongoose.model('User');
 
 // authentication middleware
 exports.setUser = async (req, res, next) => {
-  // console.log(req.headers.cookie);
   const userId = req.session.userId;
   if (userId) {
     const user = await User.findOne({ _id: userId });

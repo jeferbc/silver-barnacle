@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
     type: [{
       text: {
         type: String,
-        required: true
+        required: [true, "is required"]
       },
       votes: {
         type: Number,
