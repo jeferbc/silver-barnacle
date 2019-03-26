@@ -21,6 +21,6 @@ router.post("/polls", middlewares.requireUser, polls.create);
 router.get("/polls/:id", polls.show);
 router.post("/polls/:id/vote", polls.vote);
 router.get("/polls/:id/results", polls.results);
-router.delete("/polls/:id", polls.remove)
+router.delete("/polls/:id", polls.remove);
 
 module.exports = router;
